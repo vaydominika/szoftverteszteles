@@ -1,0 +1,33 @@
+Hibák:
+H1: 15 percnél VIP-ként -20 Ft-ot ad 0 Ft helyett. (T04)
+Ok: minutes < 15 szerepel minutes <= 15 helyett.
+H2: A megkezdett órákat lefelé kerekíti. (T05–T06, T08)
+Ok: Math.floor() szerepel Math.ceil() helyett.
+H3: A VIP kedvezmény 20% helyett 20 Ft. (T11–T12)
+Ok: 0.8-as szorzás helyett 20-at von le.
+H4: A napi díjkorlátot a kedvezmények után alkalmazza. (T14–T16)
+Ok: Az 5000 Ft-os normál díjkorlát ellenőrzése a kedvezmények után van.
+H5: Elfogadja a negatív parkolási időt. (T17–T18)
+Ok: A negatív időre is az ingyenes ág fut le.
+
+Tesztesetek:
+Bemenet: (perc, hétvége, VIP).
+ID | Bemenet | Elvárt | Tényleges | Eredmény
+T01 | [0, false, false] | 0 | 0 | megfelelt
+T02 | [14, false, true] | 0 | 0 | megfelelt
+T03 | [15, false, false] | 0 | 0 | megfelelt
+T04 | [15, false, true] | 0 | -20 | hibás
+T05 | [16, false, false] | 600 | 0 | hibás
+T06 | [59, false, false] | 600 | 0 | hibás
+T07 | [60, false, false] | 600 | 600 | megfelelt
+T08 | [61, false, false] | 1200 | 600 | hibás
+T09 | [120, false, false] | 1200 | 1200 | megfelelt
+T10 | [60, true, false] | 300 | 300 | megfelelt
+T11 | [60, false, true] | 480 | 580 | hibás
+T12 | [60, true, true] | 240 | 280 | hibás
+T13 | [600, false, false] | 5000 | 5000 | megfelelt
+T14 | [600, true, false] | 2500 | 3000 | hibás
+T15 | [600, false, true] | 4000 | 5000 | hibás
+T16 | [600, true, true] | 2000 | 2980 | hibás
+T17 | [-1, false, false] | hibajelzés | 0 | hibás
+T18 | [-1, true, true] | hibajelzés | 0 | hibás

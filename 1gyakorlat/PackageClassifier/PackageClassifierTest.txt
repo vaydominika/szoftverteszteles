@@ -1,0 +1,31 @@
+Hibák:
+H1: A 2 kg-os és 30 cm-es határokat kizárja a SMALL kategóriából. (T01–T04)
+Ok: A SMALL feltételeiben < szerepel <= helyett.
+H2: A MEDIUM kategóriához egyetlen megfelelő méret is elég. (T05–T08)
+Ok: A méretfeltételek között || szerepel && helyett.
+H3: Elfogadja a nulla és negatív tömeget, illetve méreteket. (T09–T16)
+Ok: Hiányzik a pozitív tömeg és méretek ellenőrzése.
+
+Tesztesetek:
+Bemenet: (tömeg, hossz, szélesség, magasság).
+ID | Bemenet | Elvárt | Tényleges | Eredmény
+T01 | [2, 20, 20, 20] | SMALL | MEDIUM | HIBÁS
+T02 | [1, 30, 20, 20] | SMALL | MEDIUM | HIBÁS
+T03 | [1, 20, 30, 20] | SMALL | MEDIUM | HIBÁS
+T04 | [1, 20, 20, 30] | SMALL | MEDIUM | HIBÁS
+T05 | [5, 61, 50, 50] | LARGE | MEDIUM | HIBÁS
+T06 | [5, 50, 61, 50] | LARGE | MEDIUM | HIBÁS
+T07 | [5, 50, 50, 61] | LARGE | MEDIUM | HIBÁS
+T08 | [5, 121, 50, 50] | OVERSIZE | MEDIUM | HIBÁS
+T09 | [0, 20, 20, 20] | INVALID | SMALL | HIBÁS
+T10 | [-1, 20, 20, 20] | INVALID | SMALL | HIBÁS
+T11 | [1, 0, 20, 20] | INVALID | SMALL | HIBÁS
+T12 | [1, -1, 20, 20] | INVALID | SMALL | HIBÁS
+T13 | [1, 20, 0, 20] | INVALID | SMALL | HIBÁS
+T14 | [1, 20, -1, 20] | INVALID | SMALL | HIBÁS
+T15 | [1, 20, 20, 0] | INVALID | SMALL | HIBÁS
+T16 | [1, 20, 20, -1] | INVALID | SMALL | HIBÁS
+T17 | [1, 20, 20, 20] | SMALL | SMALL | megfelelt
+T18 | [10, 60, 60, 60] | MEDIUM | MEDIUM | megfelelt
+T19 | [30, 120, 120, 120] | LARGE | LARGE | megfelelt
+T20 | [31, 120, 120, 120] | OVERSIZE | OVERSIZE | megfelelt

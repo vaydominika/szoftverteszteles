@@ -1,0 +1,30 @@
+Hibák:
+H1: 6 évesen tévesen ingyenes a jegy. (T01)
+Ok: age <= 6 szerepel age < 6 helyett.
+H2: 65 évesen nem jár a 40% kedvezmény. (T02)
+Ok: age > 65 szerepel age >= 65 helyett.
+H3: Egyszerre több kedvezményt alkalmaz. (T03–T04)
+Ok: A diákkedvezményt az életkori kedvezmény után is levonja.
+H4: Hibás a 800 Ft-os 3D felár számítása. (T05–T08)
+Ok: 800 Ft hozzáadása helyett 1.8-cal szoroz.
+H5: Elfogadja a negatív és a 120 év feletti életkort. (T09–T10)
+Ok: Hiányzik az életkor tartományának ellenőrzése.
+
+Tesztesetek:
+Bemenet: (életkor, diák, 3D).
+ID | Bemenet | Elvárt | Tényleges | Eredmény
+T01 | [6, false, false] | 2100 | 0 | HIBÁS
+T02 | [65, false, false] | 1800 | 3000 | HIBÁS
+T03 | [12, true, false] | 2100 | 1680 | HIBÁS
+T04 | [70, true, false] | 1800 | 1440 | HIBÁS
+T05 | [30, false, true] | 3800 | 5400 | HIBÁS
+T06 | [12, false, true] | 2900 | 3780 | HIBÁS
+T07 | [30, true, true] | 3200 | 4320 | HIBÁS
+T08 | [5, false, true] | 800 | 0 | HIBÁS
+T09 | [-1, false, false] | hibajelzés | 0 | HIBÁS
+T10 | [121, false, false] | hibajelzés | 1800 | HIBÁS
+T11 | [5, false, false] | 0 | 0 | megfelelt
+T12 | [17, false, false] | 2100 | 2100 | megfelelt
+T13 | [18, false, false] | 3000 | 3000 | megfelelt
+T14 | [30, true, false] | 2400 | 2400 | megfelelt
+T15 | [120, false, false] | 1800 | 1800 | megfelelt

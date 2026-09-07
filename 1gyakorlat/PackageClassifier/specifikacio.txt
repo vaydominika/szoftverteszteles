@@ -1,0 +1,13 @@
+5. PackageClassifier Hallgatói specifikáció
+
+Egy futárszolgálat a csomagokat méret és tömeg alapján kategorizálja.
+
+- SMALL: legfeljebb 2 kg; mindhárom mérete legfeljebb 30 cm.
+- MEDIUM: legfeljebb 10 kg; egyik mérete sem nagyobb 60 cm-nél.
+- LARGE: legfeljebb 30 kg; egyik mérete sem nagyobb 120 cm-nél.
+- Egyéb esetben: OVERSIZE.
+
+Érvénytelen a csomag, ha bármely mérete 0 vagy negatív,
+vagy a tömege 0 vagy negatív. Ebben az esetben: INVALID.
+
+A mellékelt JavaScript-kód szándékosan hibás, tesztelési feladatként szolgál.

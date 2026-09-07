@@ -1,0 +1,30 @@
+Hibák:
+H1: Egy részminimum hiányában is sikeres lehet a vizsga. (T01–T02)
+Ok: A minimumok ellenőrzésében && szerepel || helyett.
+H2: 60 pontnál 3 helyett 2 a jegy. (T03)
+Ok: total <= 60 szerepel total < 60 helyett.
+H3: 70 pontnál 4 helyett 3 a jegy. (T04)
+Ok: total <= 70 szerepel total < 70 helyett.
+H4: 85 pontnál 5 helyett 4 a jegy. (T05)
+Ok: total <= 85 szerepel total < 85 helyett.
+H5: Elfogadja a tartományon kívüli pontszámokat. (T06–T09)
+Ok: Hiányzik a pontszámok tartományának ellenőrzése.
+
+Tesztesetek:
+Bemenet: (elmélet, gyakorlat).
+ID | Bemenet | Elvárt | Tényleges | Eredmény
+T01 | [29, 40] | 1 | 3 | HIBÁS
+T02 | [60, 19] | 1 | 4 | HIBÁS
+T03 | [30, 30] | 3 | 2 | HIBÁS
+T04 | [40, 30] | 4 | 3 | HIBÁS
+T05 | [45, 40] | 5 | 4 | HIBÁS
+T06 | [-1, 20] | hibajelzés | 1 | HIBÁS
+T07 | [30, -1] | hibajelzés | 1 | HIBÁS
+T08 | [61, 20] | hibajelzés | 4 | HIBÁS
+T09 | [30, 41] | hibajelzés | 4 | HIBÁS
+T10 | [30, 20] | 2 | 2 | megfelelt
+T11 | [29, 19] | 1 | 1 | megfelelt
+T12 | [39, 20] | 2 | 2 | megfelelt
+T13 | [39, 30] | 3 | 3 | megfelelt
+T14 | [44, 40] | 4 | 4 | megfelelt
+T15 | [60, 40] | 5 | 5 | megfelelt
