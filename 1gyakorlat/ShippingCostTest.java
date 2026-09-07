@@ -21,7 +21,7 @@ public class ShippingCostTest {
         return shippingCost;
     }
 
-    // A null expected value indicates that an error is expected for negative input.
+    // A null expected value indicates that an error is expected for invalid input.
     private record TestCase(double orderValue, double weight, String country,
                             boolean express, Double expected, double manual) {}
 
@@ -51,6 +51,9 @@ public class ShippingCostTest {
             new TestCase(20001, -1, "HU", false, null, 0),
             new TestCase(0, 1, "HU", false, 1500.0, 1500),
             new TestCase(10000, 21, "DE", false, 10000.0, 10000),
+            new TestCase(10000, 1, "", false, null, 3000),
+            new TestCase(10000, 1, "HUN", false, null, 3000),
+            new TestCase(10000, 1, "12", false, null, 3000),
         };
         int failures = 0;
         int manualMismatches = 0;

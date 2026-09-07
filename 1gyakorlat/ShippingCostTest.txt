@@ -3,7 +3,7 @@ SZÁLLÍTÁSI DÍJ TESZTELÉSE
 2-3. Tesztesetek és elvárt eredmények
 Bemenet: (rendelési érték, tömeg, országkód, expressz).
 Feltételezés: a magyar ingyenesség expressz esetén is érvényes.
-Negatív értéknél hibajelzést várunk.
+Negatív értéknél, illetve hibás vagy üres országkódnál hibajelzést várunk.
 
 ID  | Bemenet                         | Elvárt    | Tényleges | Minősítés
 T01 | (10000, 0, "HU", false)          | 1500 Ft   | 1500 Ft   | megfelelt
@@ -30,9 +30,12 @@ T21 | (10000, -1, "HU", false)         | hibajelzés| 1500 Ft   | hibás
 T22 | (20001, -1, "HU", false)         | hibajelzés| 0 Ft      | hibás
 T23 | (0, 1, "HU", false)              | 1500 Ft   | 1500 Ft   | megfelelt
 T24 | (10000, 21, "DE", false)         | 10000 Ft  | 10000 Ft  | megfelelt
+T25 | (10000, 1, "", false)            | hibajelzés| 3000 Ft   | hibás
+T26 | (10000, 1, "HUN", false)         | hibajelzés| 3000 Ft   | hibás
+T27 | (10000, 1, "12", false)          | hibajelzés| 3000 Ft   | hibás
 
 
-4. Kézi végrehajtás
+4. A függvény működésének levezetése (a Java-futtatás eredményeivel)
 T01-T02: tömeg < 5, díj 1500 Ft.
 T03: 5 > 5 hamis, ezért 5000 Ft.
 T04-T05: 5 < tömeg < 20, díj 2500 Ft.
@@ -51,6 +54,8 @@ T21: -1 < 5 igaz, ezért 1500 Ft.
 T22: ingyenesség miatt negatív tömegnél is 0 Ft.
 T23: nulla rendelési értéknél díj 1500 Ft.
 T24: külföldi díj 5000 * 2 = 10000 Ft.
+T25-T27: nincs országkód-ellenőrzés; az alapdíj 1500 Ft, az országkód nem "HU",
+ezért a díj kétszeres, azaz 3000 Ft.
 
 5-6. Hibák és reprodukáló tesztesetek
 A hivatkozott tesztek pontos bemenete és eredménye a táblázatban szerepel.
@@ -76,7 +81,12 @@ Ok: hiányzik a negatív érték ellenőrzése.
 H7: negatív tömeget elfogad. Reprodukció: T21, T22.
 Ok: hiányzik a tömeg ellenőrzése az ingyenesség vizsgálata előtt.
 
-Eredmény: 24 teszt, 13 megfelelt, 11 hibás; 7 hiba.
-A Java-futtatás minden kézi eredményt megerősített.
-Futtatás: java ShippingCostTest.java (JDK 17+).
+H8: hibás vagy üres országkódot is elfogad.
+Ok: a kód csak a "HU" értékkel hasonlítja össze az országkódot, de nem ellenőrzi,
+hogy érvényes kétbetűs ISO-országkód-e. Minden más értéket külföldinek tekint.
+Reprodukció: T25-T27.
+
+Eredmény: 27 Java-teszt, 13 megfelelt, 14 hibás; 8 dokumentált hiba.
+A tényleges eredmények a Java-tesztprogram futtatásából származnak.
+Futtatás a projekt gyökeréből: java 1gyakorlat/ShippingCostTest.java (JDK 17+).
 Az 1-es kilépési kód a feltárt hibákat jelzi.
