@@ -1,0 +1,82 @@
+SZÁLLÍTÁSI DÍJ TESZTELÉSE
+
+2-3. Tesztesetek és elvárt eredmények
+Bemenet: (rendelési érték, tömeg, országkód, expressz).
+Feltételezés: a magyar ingyenesség expressz esetén is érvényes.
+Negatív értéknél hibajelzést várunk.
+
+ID  | Bemenet                         | Elvárt    | Tényleges | Minősítés
+T01 | (10000, 0, "HU", false)          | 1500 Ft   | 1500 Ft   | megfelelt
+T02 | (10000, 4.99, "HU", false)       | 1500 Ft   | 1500 Ft   | megfelelt
+T03 | (10000, 5, "HU", false)          | 2500 Ft   | 5000 Ft   | hibás
+T04 | (10000, 5.01, "HU", false)       | 2500 Ft   | 2500 Ft   | megfelelt
+T05 | (10000, 19.99, "HU", false)      | 2500 Ft   | 2500 Ft   | megfelelt
+T06 | (10000, 20, "HU", false)         | 2500 Ft   | 5000 Ft   | hibás
+T07 | (10000, 20.01, "HU", false)      | 5000 Ft   | 5000 Ft   | megfelelt
+T08 | (19999, 1, "HU", false)          | 1500 Ft   | 1500 Ft   | megfelelt
+T09 | (20000, 1, "HU", false)          | 1500 Ft   | 0 Ft      | hibás
+T10 | (20001, 1, "HU", false)          | 0 Ft      | 0 Ft      | megfelelt
+T11 | (20001, 1, "HU", true)           | 0 Ft      | 0 Ft      | megfelelt
+T12 | (10000, 1, "DE", false)          | 3000 Ft   | 3000 Ft   | megfelelt
+T13 | (20001, 1, "DE", false)          | 3000 Ft   | 3000 Ft   | megfelelt
+T14 | (10000, 1, "HU", true)           | 2250 Ft   | 1550 Ft   | hibás
+T15 | (10000, 10, "DE", true)          | 7500 Ft   | 5050 Ft   | hibás
+T16 | (10000, 1, "hu", false)          | 1500 Ft   | 3000 Ft   | hibás
+T17 | (20001, 1, "hu", false)          | 0 Ft      | 3000 Ft   | hibás
+T18 | (10000, 1, "Hu", false)          | 1500 Ft   | 3000 Ft   | hibás
+T19 | (10000, 1, "de", false)          | 3000 Ft   | 3000 Ft   | megfelelt
+T20 | (-1, 1, "HU", false)             | hibajelzés| 1500 Ft   | hibás
+T21 | (10000, -1, "HU", false)         | hibajelzés| 1500 Ft   | hibás
+T22 | (20001, -1, "HU", false)         | hibajelzés| 0 Ft      | hibás
+T23 | (0, 1, "HU", false)              | 1500 Ft   | 1500 Ft   | megfelelt
+T24 | (10000, 21, "DE", false)         | 10000 Ft  | 10000 Ft  | megfelelt
+
+
+4. Kézi végrehajtás
+T01-T02: tömeg < 5, díj 1500 Ft.
+T03: 5 > 5 hamis, ezért 5000 Ft.
+T04-T05: 5 < tömeg < 20, díj 2500 Ft.
+T06: 20 < 20 hamis, ezért 5000 Ft.
+T07: tömeg > 20, díj 5000 Ft.
+T08: nincs ingyenesség, díj 1500 Ft.
+T09: 20000 >= 20000 igaz, ezért 0 Ft.
+T10-T11: ingyenesség miatt azonnal 0 Ft.
+T12-T13: külföldi díj 1500 * 2 = 3000 Ft.
+T14: expressz díj 1500 + 50 = 1550 Ft.
+T15: külföldi expressz díj 2500 * 2 + 50 = 5050 Ft.
+T16-T18: a kisbetűs vagy vegyes HU-kód külföldinek számít: 3000 Ft.
+T19: külföldi díj 1500 * 2 = 3000 Ft.
+T20: nincs értékellenőrzés, díj 1500 Ft.
+T21: -1 < 5 igaz, ezért 1500 Ft.
+T22: ingyenesség miatt negatív tömegnél is 0 Ft.
+T23: nulla rendelési értéknél díj 1500 Ft.
+T24: külföldi díj 5000 * 2 = 10000 Ft.
+
+5-6. Hibák és reprodukáló tesztesetek
+A hivatkozott tesztek pontos bemenete és eredménye a táblázatban szerepel.
+
+H1: 5 kg-nál rossz díjsáv. Reprodukció: T03.
+Ok: weight > 5 kizárja az 5 kg-ot.
+
+H2: 20 kg-nál rossz díjsáv. Reprodukció: T06.
+Ok: weight < 20 kizárja a 20 kg-ot.
+
+H3: 20000 Ft-nál már ingyenes. Reprodukció: T09.
+Ok: >= szerepel > helyett.
+
+H4: expressznél 50 Ft a felár 50% helyett. Reprodukció: T14, T15.
+Ok: + 50 szerepel * 1.5 helyett.
+
+H5: a magyar országkód kisbetűvel hibás. Reprodukció: T16-T18.
+Ok: az összehasonlítás kis- és nagybetűérzékeny.
+
+H6: negatív rendelési értéket elfogad. Reprodukció: T20.
+Ok: hiányzik a negatív érték ellenőrzése.
+
+H7: negatív tömeget elfogad. Reprodukció: T21, T22.
+Ok: hiányzik a tömeg ellenőrzése az ingyenesség vizsgálata előtt.
+
+Eredmény: 24 teszt, 13 megfelelt, 11 hibás; 7 hiba.
+A Java-futtatás minden kézi eredményt megerősített.
+Futtatás: java ShippingCostTest.java (JDK 17+).
+Az 1-es kilépési kód a feltárt hibákat jelzi.
