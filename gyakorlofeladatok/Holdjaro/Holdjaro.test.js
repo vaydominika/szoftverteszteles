@@ -55,3 +55,8 @@ QUnit.test('R11: left turn across compass boundary', assert => {
     const rover = new RoverForTest({x: 3, y: 4, direction: 'N'});
     assert.deepEqual(rover.execute('l'), {position: {x: 3, y: 4, direction: 'W'}, obstacle: null});
 });
+
+QUnit.test('R12: ordered command sequence', assert => {
+    const rover = new RoverForTest({x: 3, y: 4, direction: 'N'});
+    assert.deepEqual(rover.execute('ffrfflb'), {position: {x: 5, y: 3, direction: 'N'}, obstacle: null});
+});
