@@ -13,6 +13,7 @@ class Holdjaro {
         if (!Number.isSafeInteger(this.width) || this.width < 2 || this.width % 2 !== 0) throw new RangeError('Positive even longitude count required');
         if (!Number.isSafeInteger(this.height) || this.height < 1) throw new RangeError('Positive integer latitude count required');
         if (!Array.isArray(this.obstacles) || this.obstacles.some(cell => !Array.isArray(cell) || cell.length !== 2 || !Number.isSafeInteger(cell[0]) || !Number.isSafeInteger(cell[1]) || cell[0] < 1 || cell[0] > this.width || cell[1] < 1 || cell[1] > this.height)) throw new RangeError('Invalid obstacle coordinates');
+        if (this.obstacles.some(([x, y]) => x === this.x && y === this.y)) throw new RangeError('Starting cell is blocked');
     }
 
     getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
