@@ -2,6 +2,7 @@ function calculateShippingCost(orderValue, weight, country, express) {
     if (orderValue < 0) throw new RangeError('Invalid order value');
     if (weight < 0) throw new RangeError('Invalid weight');
     country = country.toUpperCase();
+    if (!/^[A-Z]{2}$/.test(country)) throw new RangeError('Invalid country code');
     if (country === 'HU' && orderValue > 20000) return 0;
     let fee = 1500;
     if (weight >= 5) fee = 2500;
