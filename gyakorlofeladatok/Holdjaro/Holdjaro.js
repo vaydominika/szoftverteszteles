@@ -25,6 +25,7 @@ if (command === 'r') this.direction = ['N', 'E', 'S', 'W'][(['N', 'E', 'S', 'W']
 if (command === 'l') this.direction = ['N', 'E', 'S', 'W'][(['N', 'E', 'S', 'W'].indexOf(this.direction) + 3) % 4];
 if (this.x > this.width) this.x = 1;
 if (this.x < 1) this.x = this.width;
+if (this.y < 1) { this.y = 1; this.x = (this.x - 1 + 4) % this.width + 1; this.direction = 'S'; }
         }
         return {position: this.getPosition(), obstacle: null};
     }
