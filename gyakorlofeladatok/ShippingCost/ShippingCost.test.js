@@ -16,3 +16,7 @@ QUnit.test('S03: parcel above twenty kilograms', assert => {
 QUnit.test('S04: free domestic order', assert => {
     assert.strictEqual(shippingForTest(20001, 1, "HU", false), 0);
 });
+
+QUnit.test('S05: international multiplier', assert => {
+    assert.strictEqual(shippingForTest(10000, 1, "DE", false), 3000);
+});
