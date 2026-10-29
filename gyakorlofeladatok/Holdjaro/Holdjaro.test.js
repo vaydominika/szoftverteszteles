@@ -15,3 +15,8 @@ QUnit.test('R03: backward north', assert => {
     const rover = new RoverForTest({x: 3, y: 4, direction: 'N'});
     assert.deepEqual(rover.execute('b'), {position: {x: 3, y: 5, direction: 'N'}, obstacle: null});
 });
+
+QUnit.test('R04: forward east', assert => {
+    const rover = new RoverForTest({x: 3, y: 4, direction: 'E'});
+    assert.deepEqual(rover.execute('f'), {position: {x: 4, y: 4, direction: 'E'}, obstacle: null});
+});
