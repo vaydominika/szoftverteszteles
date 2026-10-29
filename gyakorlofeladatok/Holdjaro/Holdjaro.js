@@ -14,6 +14,7 @@ class Holdjaro {
     execute(commands) {
         const command = commands[0];
         if (command === 'f' && this.direction === 'N') this.y -= 1;
+if (command === 'b' && this.direction === 'N') this.y += 1;
         return {position: this.getPosition(), obstacle: null};
     }
 }
