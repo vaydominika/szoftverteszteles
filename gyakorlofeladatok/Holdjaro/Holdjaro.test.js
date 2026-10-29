@@ -110,3 +110,8 @@ QUnit.test('R22: configured globe dimensions', assert => {
     const rover = new RoverForTest({x: 8, y: 3, direction: 'E', width: 12, height: 6});
     assert.deepEqual(rover.execute('f'), {position: {x: 9, y: 3, direction: 'E'}, obstacle: null});
 });
+
+QUnit.test('R23: antipodal longitude for configured globe', assert => {
+    const rover = new RoverForTest({x: 2, y: 1, direction: 'N', width: 12, height: 6});
+    assert.deepEqual(rover.execute('f'), {position: {x: 8, y: 1, direction: 'S'}, obstacle: null});
+});
