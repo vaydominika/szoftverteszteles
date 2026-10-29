@@ -1,21 +1,6 @@
 function calculateTicketPrice(age, isStudent, is3D) {
-    let price = 3000;
-
-    if (age <= 6) {
-        price = 0;
-    } else if (age < 18) {
-        price = price * 0.7;
-    } else if (age > 65) {
-        price = price * 0.6;
-    }
-
-    if (isStudent) {
-        price = price * 0.8;
-    }
-
-    if (is3D) {
-        price = price * 1.8;
-    }
-
-    return price;
+    if (!Number.isFinite(age) || age < 0 || age > 120) throw new RangeError('Invalid age');
+    const ageDiscount = age < 6 ? 1 : age < 18 ? 0.3 : age >= 65 ? 0.4 : 0;
+    const discount = Math.max(ageDiscount, isStudent ? 0.2 : 0);
+    return 3000 * (1 - discount) + (is3D ? 800 : 0);
 }
