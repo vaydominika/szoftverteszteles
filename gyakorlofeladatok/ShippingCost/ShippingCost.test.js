@@ -36,3 +36,7 @@ QUnit.test('S08: negative weight rejection', assert => {
 QUnit.test('S09: case insensitive country', assert => {
     assert.strictEqual(shippingForTest(20001, 1, "hu", false), 0);
 });
+
+QUnit.test('S10: malformed country rejection', assert => {
+    assert.throws(() => shippingForTest(10000, 1, "", false), RangeError);
+});
