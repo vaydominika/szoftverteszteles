@@ -121,3 +121,9 @@ QUnit.test('R24: invalid sequence is rejected before movement', assert => {
     assert.throws(() => rover.execute('fx'), RangeError);
     assert.deepEqual(rover.getPosition(), {x: 3, y: 4, direction: 'N'});
 });
+
+QUnit.test('R25: command list must be a string', assert => {
+    const rover = new RoverForTest({x: 3, y: 4, direction: 'N'});
+    assert.throws(() => rover.execute(['f']), TypeError);
+    assert.deepEqual(rover.getPosition(), {x: 3, y: 4, direction: 'N'});
+});
