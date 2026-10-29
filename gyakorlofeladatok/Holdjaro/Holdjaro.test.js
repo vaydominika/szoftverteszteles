@@ -65,3 +65,8 @@ QUnit.test('R13: east longitude seam', assert => {
     const rover = new RoverForTest({x: 8, y: 4, direction: 'E'});
     assert.deepEqual(rover.execute('f'), {position: {x: 1, y: 4, direction: 'E'}, obstacle: null});
 });
+
+QUnit.test('R14: west longitude seam', assert => {
+    const rover = new RoverForTest({x: 1, y: 4, direction: 'W'});
+    assert.deepEqual(rover.execute('f'), {position: {x: 8, y: 4, direction: 'W'}, obstacle: null});
+});
