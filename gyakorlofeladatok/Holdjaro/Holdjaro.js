@@ -3,8 +3,8 @@ class Holdjaro {
         this.x = options.x;
         this.y = options.y;
         this.direction = options.direction;
-        this.width = 8;
-        this.height = 8;
+        this.width = options.width ?? 8;
+        this.height = options.height ?? 8;
         this.obstacles = options.obstacles ?? [];
 
     }
