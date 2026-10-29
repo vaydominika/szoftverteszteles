@@ -155,3 +155,7 @@ QUnit.test('R31: integer latitude band count', assert => {
 QUnit.test('R32: obstacle coordinates inside globe', assert => {
     assert.throws(() => new RoverForTest({x: 3, y: 4, direction: 'N', obstacles: [[9, 2]]}), RangeError);
 });
+
+QUnit.test('R33: starting cell cannot contain obstacle', assert => {
+    assert.throws(() => new RoverForTest({x: 3, y: 4, direction: 'N', obstacles: [[3, 4]]}), RangeError);
+});
