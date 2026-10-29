@@ -1,14 +1,6 @@
-const fs = require("node:fs");
-const path = require("node:path");
-const vm = require("node:vm");
+const { runCases } = require('../../scripts/case-runner.js');
 
-// A specifikáció szerinti, javított megoldás ellenőrzése.
-const context = vm.createContext({});
-vm.runInContext(fs.readFileSync(path.join(__dirname, "DiscountCalculator.js"), "utf8"), context);
-const calculate = context.calculateDiscountedPrice;
-
-// A null expected value means invalid input must throw an error.
-const cases = [
+runCases(__filename, 'calculateDiscountedPrice', [
     [[0, false], 0],
     [[9999, false], 9999],
     [[10000, false], 9500],
@@ -26,27 +18,4 @@ const cases = [
     [[-1, false], null],
     [[-1, true], null],
     [[0, true], 0]
-];
-const results = cases.map(([input, expected], index) => {
-    let actual;
-    let threw = false;
-    try {
-        actual = calculate(...input);
-    } catch (error) {
-        threw = true;
-        actual = "error";
-    }
-    const passed = expected === null ? threw : !threw && typeof actual === "number" && Math.abs(actual - expected) < 1e-7;
-    return { id: `T${String(index + 1).padStart(2, "0")}`, input,
-        expected: expected === null ? "error" : expected, actual, passed };
-});
-if (process.argv.includes("--json")) {
-    console.log(JSON.stringify(results, null, 2));
-} else {
-    for (const test of results) {
-        console.log(`${test.id}: input=${JSON.stringify(test.input)}, expected=${test.expected}, actual=${test.actual}, ${test.passed ? "passed" : "FAILED"}`);
-    }
-    const passed = results.filter(test => test.passed).length;
-    console.log(`${results.length} cases, ${passed} passed, ${results.length - passed} failed.`);
-}
-process.exitCode = results.every(test => test.passed) ? 0 : 1;
+]);
