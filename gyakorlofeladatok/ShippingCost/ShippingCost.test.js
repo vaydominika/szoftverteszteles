@@ -44,3 +44,7 @@ QUnit.test('S10: malformed country rejection', assert => {
 QUnit.test('S11: nonfinite order rejection', assert => {
     assert.throws(() => shippingForTest(NaN, 1, "HU", false), RangeError);
 });
+
+QUnit.test('S12: nonfinite weight rejection', assert => {
+    assert.throws(() => shippingForTest(10000, NaN, "HU", false), RangeError);
+});
