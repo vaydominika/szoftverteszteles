@@ -135,3 +135,7 @@ QUnit.test('R26: invalid initial direction', assert => {
 QUnit.test('R27: integer starting coordinates', assert => {
     assert.throws(() => new RoverForTest({x: 1.5, y: 4, direction: 'N'}), RangeError);
 });
+
+QUnit.test('R28: initial longitude inside globe', assert => {
+    assert.throws(() => new RoverForTest({x: 0, y: 4, direction: 'N'}), RangeError);
+});
