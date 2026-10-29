@@ -105,3 +105,8 @@ QUnit.test('R21: polar obstacle preserves last safe position and heading', asser
     const rover = new RoverForTest({x: 1, y: 2, direction: 'N', obstacles: [[5, 1]]});
     assert.deepEqual(rover.execute('ffr'), {position: {x: 1, y: 1, direction: 'N'}, obstacle: {x: 5, y: 1, commandIndex: 1}});
 });
+
+QUnit.test('R22: configured globe dimensions', assert => {
+    const rover = new RoverForTest({x: 8, y: 3, direction: 'E', width: 12, height: 6});
+    assert.deepEqual(rover.execute('f'), {position: {x: 9, y: 3, direction: 'E'}, obstacle: null});
+});
