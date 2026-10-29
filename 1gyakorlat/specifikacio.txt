@@ -1,0 +1,8 @@
+ShippingCost
+0 <= tömeg < 5 kg: 1500 Ft; 5 <= tömeg <= 20 kg: 2500 Ft; felette: 5000 Ft.
+Külföldre kétszeres díj; expressz esetén további 50% felár.
+Magyarországra 20000 Ft FELETT ingyenes, expressz esetén is.
+Az országkód két ASCII betű, kis- és nagybetűtől független; HU belföld, más kód külföld.
+Negatív vagy nem véges rendelési érték/tömeg és hibás országkód: IllegalArgumentException.
+A nulla tömeg a korábbi tesztek szerint elfogadott.
+Az eredeti ShippingCost.java JavaScriptet tartalmazott; az eredeti az eredeti/ShippingCost.js fájlban maradt meg.

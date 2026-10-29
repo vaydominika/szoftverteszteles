@@ -1,0 +1,12 @@
+2. ParkingFeeCalculator – Hallgatói specifikáció
+
+Egy parkoló díjszabása:
+
+- Az első 15 perc ingyenes.
+- 15 perc felett minden megkezdett óra 600 Ft.
+- A napi maximális parkolási díj 5000 Ft.
+- Hétvégén a normál díj 50%-át kell fizetni.
+- VIP ügyfél további 20% kedvezményt kap.
+- Negatív parkolási idő nem megengedett.
+
+A függvény a fizetendő parkolási díjat adja vissza.

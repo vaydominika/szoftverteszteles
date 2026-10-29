@@ -1,0 +1,13 @@
+{
+  "name": "szoftverteszteles",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:first && npm run test:qunit",
+    "test:first": "node scripts/test-first.js",
+    "test:qunit": "qunit 2gyakorlat/*.test.js"
+  },
+  "devDependencies": {
+    "qunit": "2.26.0"
+  }
+}

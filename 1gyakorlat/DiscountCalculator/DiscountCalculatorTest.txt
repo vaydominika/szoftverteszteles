@@ -1,0 +1,32 @@
+Hibák:
+H1: 10000 Ft-nál nem adja meg az 5% kedvezményt. (T03)
+Ok: orderValue > 10000 szerepel >= helyett.
+H2: 50000 Ft-nál 15% helyett 10% kedvezményt választ. (T08)
+Ok: Az 50000 Ft még a <= 50000 ágba kerül.
+H3: Hibás a VIP kedvezmény. (T10–T13)
+Ok: 0.05 helyett 5-öt ad hozzá, így mindig eléri a 20%-os korlátot.
+H4: Hibás a fizetendő összeg számítása. (T04–T14, T17)
+Ok: A kedvezmény arányát vonja le a kedvezmény összege helyett.
+H5: Elfogadja a negatív rendelési értéket. (T15–T16)
+Ok: Hiányzik a negatív érték ellenőrzése.
+
+Tesztesetek:
+Bemenet: (rendelési érték, VIP).
+ID | Bemenet | Elvárt | Tényleges | Eredmény
+T01 | [0, false] | 0 | 0 | megfelelt
+T02 | [9999, false] | 9999 | 9999 | megfelelt
+T03 | [10000, false] | 9500 | 10000 | hibás
+T04 | [10001, false] | 9500.95 | 10000.95 | hibás
+T05 | [24999, false] | 23749.05 | 24998.95 | hibás
+T06 | [25000, false] | 22500 | 24999.9 | hibás
+T07 | [49999, false] | 44999.1 | 49998.9 | hibás
+T08 | [50000, false] | 42500 | 49999.9 | hibás
+T09 | [50001, false] | 42500.85 | 50000.85 | hibás
+T10 | [1000, true] | 950 | 999.8 | hibás
+T11 | [10000, true] | 9000 | 9999.8 | hibás
+T12 | [25000, true] | 21250 | 24999.8 | hibás
+T13 | [50000, true] | 40000 | 49999.8 | hibás
+T14 | [100000, true] | 80000 | 99999.8 | hibás
+T15 | [-1, false] | hibajelzés | -1 | hibás
+T16 | [-1, true] | hibajelzés | -1.2 | hibás
+T17 | [0, true] | 0 | -0.2 | hibás

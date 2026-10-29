@@ -1,0 +1,9 @@
+1. A 15 perc kezelése hibás. A specifikáció szerint az első 15 perc ingyenes, ezért 15 percnél is 0 Ft-ot kellene visszaadni. A feltétel jelenleg minutes < 15, helyesen minutes <= 15 lenne.
+
+2. A megkezdett órák számítása hibás. A kód Math.floor() függvényt használ, ezért lefelé kerekít. Mivel minden megkezdett óra fizetős, Math.ceil() használata szükséges.
+
+3. A VIP kedvezmény hibás. A specifikáció 20% kedvezményt ír elő, a kód viszont csak 20 Ft-ot von le a díjból. A díjat 0.8-cal kellene megszorozni.
+
+4. A negatív parkolási idő nincs megfelelően kezelve. A specifikáció szerint negatív parkolási idő nem megengedett, a jelenlegi kód azonban ilyen esetben 0 Ft-ot ad vissza. Negatív értéknél hibát kellene jelezni.
+
+5. A napi maximális díj alkalmazásának sorrendje hibás lehet. A kód előbb alkalmazza a hétvégi és VIP kedvezményeket, majd ezután korlátozza a díjat 5000 Ft-ra. A specifikáció alapján előbb a normál díjat kellene legfeljebb 5000 Ft-ra korlátozni, és csak ezután alkalmazni a kedvezményeket.
