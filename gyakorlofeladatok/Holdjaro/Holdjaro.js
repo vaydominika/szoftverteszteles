@@ -32,6 +32,7 @@ if (this.y > this.height) { this.y = this.height; this.x = (this.x - 1 + 4) % th
                 const obstacle = {x: this.x, y: this.y, commandIndex};
                 this.x = before.x;
                 this.y = before.y;
+                this.direction = before.direction;
                 return {position: this.getPosition(), obstacle};
             }
         }
