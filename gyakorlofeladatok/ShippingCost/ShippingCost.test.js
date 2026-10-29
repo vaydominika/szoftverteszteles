@@ -24,3 +24,7 @@ QUnit.test('S05: international multiplier', assert => {
 QUnit.test('S06: express surcharge', assert => {
     assert.strictEqual(shippingForTest(10000, 1, "HU", true), 2250);
 });
+
+QUnit.test('S07: negative order rejection', assert => {
+    assert.throws(() => shippingForTest(-1, 1, "HU", false), RangeError);
+});
