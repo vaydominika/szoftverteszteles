@@ -85,3 +85,8 @@ QUnit.test('R17: backward north pole crossing', assert => {
     const rover = new RoverForTest({x: 8, y: 1, direction: 'S'});
     assert.deepEqual(rover.execute('b'), {position: {x: 4, y: 1, direction: 'N'}, obstacle: null});
 });
+
+QUnit.test('R18: backward south pole crossing', assert => {
+    const rover = new RoverForTest({x: 8, y: 8, direction: 'N'});
+    assert.deepEqual(rover.execute('b'), {position: {x: 4, y: 8, direction: 'S'}, obstacle: null});
+});
