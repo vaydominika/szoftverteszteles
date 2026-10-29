@@ -20,3 +20,7 @@ QUnit.test('S04: free domestic order', assert => {
 QUnit.test('S05: international multiplier', assert => {
     assert.strictEqual(shippingForTest(10000, 1, "DE", false), 3000);
 });
+
+QUnit.test('S06: express surcharge', assert => {
+    assert.strictEqual(shippingForTest(10000, 1, "HU", true), 2250);
+});
