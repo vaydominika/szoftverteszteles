@@ -24,6 +24,7 @@ if (command === 'b' && this.direction === 'W') this.x += 1;
 if (command === 'r') this.direction = ['N', 'E', 'S', 'W'][(['N', 'E', 'S', 'W'].indexOf(this.direction) + 1) % 4];
 if (command === 'l') this.direction = ['N', 'E', 'S', 'W'][(['N', 'E', 'S', 'W'].indexOf(this.direction) + 3) % 4];
 if (this.x > this.width) this.x = 1;
+if (this.x < 1) this.x = this.width;
         }
         return {position: this.getPosition(), obstacle: null};
     }
