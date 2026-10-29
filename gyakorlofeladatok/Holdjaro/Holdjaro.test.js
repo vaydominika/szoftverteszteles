@@ -60,3 +60,8 @@ QUnit.test('R12: ordered command sequence', assert => {
     const rover = new RoverForTest({x: 3, y: 4, direction: 'N'});
     assert.deepEqual(rover.execute('ffrfflb'), {position: {x: 5, y: 3, direction: 'N'}, obstacle: null});
 });
+
+QUnit.test('R13: east longitude seam', assert => {
+    const rover = new RoverForTest({x: 8, y: 4, direction: 'E'});
+    assert.deepEqual(rover.execute('f'), {position: {x: 1, y: 4, direction: 'E'}, obstacle: null});
+});
