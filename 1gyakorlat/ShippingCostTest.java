@@ -30,7 +30,7 @@ class ShippingCostTest {
         "20001, -1, HU, false, error",
         "0, 1, HU, false, 1500.0",
         "10000, 21, DE, false, 10000.0",
-        "10000, 1, , false, error",
+        "10000, 1, '', false, error",
         "10000, 1, HUN, false, error",
         "10000, 1, 12, false, error"
     })
