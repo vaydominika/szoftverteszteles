@@ -127,3 +127,7 @@ QUnit.test('R25: command list must be a string', assert => {
     assert.throws(() => rover.execute(['f']), TypeError);
     assert.deepEqual(rover.getPosition(), {x: 3, y: 4, direction: 'N'});
 });
+
+QUnit.test('R26: invalid initial direction', assert => {
+    assert.throws(() => new RoverForTest({x: 3, y: 4, direction: 'X'}), RangeError);
+});
