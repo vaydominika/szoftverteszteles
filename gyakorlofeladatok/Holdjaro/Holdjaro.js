@@ -8,6 +8,7 @@ class Holdjaro {
         this.obstacles = options.obstacles ?? [];
         if (!['N', 'E', 'S', 'W'].includes(this.direction)) throw new RangeError('Invalid direction');
         if (!Number.isSafeInteger(this.x) || !Number.isSafeInteger(this.y)) throw new RangeError('Integer coordinates required');
+        if (this.x < 1 || this.x > this.width) throw new RangeError('Longitude outside globe');
     }
 
     getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
