@@ -151,3 +151,7 @@ QUnit.test('R30: even longitude sector count', assert => {
 QUnit.test('R31: integer latitude band count', assert => {
     assert.throws(() => new RoverForTest({x: 3, y: 4, direction: 'N', height: 7.5}), RangeError);
 });
+
+QUnit.test('R32: obstacle coordinates inside globe', assert => {
+    assert.throws(() => new RoverForTest({x: 3, y: 4, direction: 'N', obstacles: [[9, 2]]}), RangeError);
+});
