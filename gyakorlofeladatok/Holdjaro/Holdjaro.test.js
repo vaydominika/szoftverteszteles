@@ -131,3 +131,7 @@ QUnit.test('R25: command list must be a string', assert => {
 QUnit.test('R26: invalid initial direction', assert => {
     assert.throws(() => new RoverForTest({x: 3, y: 4, direction: 'X'}), RangeError);
 });
+
+QUnit.test('R27: integer starting coordinates', assert => {
+    assert.throws(() => new RoverForTest({x: 1.5, y: 4, direction: 'N'}), RangeError);
+});
