@@ -159,3 +159,10 @@ QUnit.test('R32: obstacle coordinates inside globe', assert => {
 QUnit.test('R33: starting cell cannot contain obstacle', assert => {
     assert.throws(() => new RoverForTest({x: 3, y: 4, direction: 'N', obstacles: [[3, 4]]}), RangeError);
 });
+
+QUnit.test('R34: obstacle map is captured at construction', assert => {
+    const obstacles = [[5, 4]];
+    const rover = new RoverForTest({x: 3, y: 4, direction: 'E', obstacles});
+    obstacles[0][0] = 4;
+    assert.deepEqual(rover.execute('ff'), {position: {x: 4, y: 4, direction: 'E'}, obstacle: {x: 5, y: 4, commandIndex: 1}});
+});
