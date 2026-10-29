@@ -17,6 +17,7 @@ class Holdjaro {
 if (command === 'b' && this.direction === 'N') this.y += 1;
 if (command === 'f' && this.direction === 'E') this.x += 1;
 if (command === 'b' && this.direction === 'E') this.x -= 1;
+if (command === 'f' && this.direction === 'S') this.y += 1;
         return {position: this.getPosition(), obstacle: null};
     }
 }
