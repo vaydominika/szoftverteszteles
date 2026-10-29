@@ -28,3 +28,7 @@ QUnit.test('S06: express surcharge', assert => {
 QUnit.test('S07: negative order rejection', assert => {
     assert.throws(() => shippingForTest(-1, 1, "HU", false), RangeError);
 });
+
+QUnit.test('S08: negative weight rejection', assert => {
+    assert.throws(() => shippingForTest(10000, -1, "HU", false), RangeError);
+});
