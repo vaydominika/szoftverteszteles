@@ -7,7 +7,7 @@ import static org.mockito.Mockito.*;
 class ExchangeRateServiceTest {
     @Test void configuredRateAndDefaultRateAreIndependent() {
         ExchangeRateService rates = mock(ExchangeRateService.class);
-        // RATE_STUB
+        when(rates.getRate("EUR", "HUF")).thenReturn(400.0);
         assertEquals(400.0, rates.getRate("EUR", "HUF"));
         assertEquals(0.0, rates.getRate("USD", "HUF"));
         verify(rates).getRate("EUR", "HUF");
