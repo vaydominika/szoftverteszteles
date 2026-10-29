@@ -12,7 +12,9 @@ class Holdjaro {
     getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
 
     execute(commands) {
-                return {position: this.getPosition(), obstacle: null};
+        const command = commands[0];
+        if (command === 'f' && this.direction === 'N') this.y -= 1;
+        return {position: this.getPosition(), obstacle: null};
     }
 }
 if (typeof module !== 'undefined') module.exports = Holdjaro;
