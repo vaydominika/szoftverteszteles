@@ -6,7 +6,7 @@ class Holdjaro {
         this.width = options.width ?? 8;
         this.height = options.height ?? 8;
         this.obstacles = options.obstacles ?? [];
-
+        if (!['N', 'E', 'S', 'W'].includes(this.direction)) throw new RangeError('Invalid direction');
     }
 
     getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
