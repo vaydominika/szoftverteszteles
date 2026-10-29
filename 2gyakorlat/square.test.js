@@ -1,15 +1,15 @@
 if (typeof require === "function") globalThis.square = require("./square.js");
 
-QUnit.module("square fÃ¼ggvÃ©ny tesztelÃ©se");
+QUnit.module("square függvény tesztelése");
 
-QUnit.test("PozitÃ­v szÃ¡m nÃ©gyzete", function (assert) {
+QUnit.test("Pozitív szám négyzete", function (assert) {
     assert.strictEqual(square(5), 25);
 });
 
-QUnit.test("NegatÃ­v szÃ¡m nÃ©gyzete", function (assert) {
+QUnit.test("Negatív szám négyzete", function (assert) {
     assert.strictEqual(square(-4), 16);
 });
 
-QUnit.test("Nulla nÃ©gyzete", function (assert) {
+QUnit.test("Nulla négyzete", function (assert) {
     assert.strictEqual(square(0), 0);
 });

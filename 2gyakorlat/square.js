@@ -1,4 +1,4 @@
-// TesztelendÅ‘ fÃ¼ggvÃ©ny
+// Tesztelendő függvény
 function square(x) {
     return x * x;
 }
