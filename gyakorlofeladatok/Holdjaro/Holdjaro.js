@@ -28,7 +28,7 @@ if (this.x > this.width) this.x = 1;
 if (this.x < 1) this.x = this.width;
 if (this.y < 1) { this.y = 1; this.x = (this.x - 1 + 4) % this.width + 1; this.direction = this.direction === 'N' ? 'S' : 'N'; }
 if (this.y > this.height) { this.y = this.height; this.x = (this.x - 1 + 4) % this.width + 1; this.direction = this.direction === 'N' ? 'S' : 'N'; }
-            if (command === 'f' && this.obstacles.some(([x, y]) => x === this.x && y === this.y)) {
+            if ((command === 'f' || command === 'b') && this.obstacles.some(([x, y]) => x === this.x && y === this.y)) {
                 const obstacle = {x: this.x, y: this.y, commandIndex};
                 this.x = before.x;
                 this.y = before.y;
