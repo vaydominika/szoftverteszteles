@@ -100,3 +100,8 @@ QUnit.test('R20: obstacle before backward movement', assert => {
     const rover = new RoverForTest({x: 2, y: 4, direction: 'E', obstacles: [[1, 4]]});
     assert.deepEqual(rover.execute('b'), {position: {x: 2, y: 4, direction: 'E'}, obstacle: {x: 1, y: 4, commandIndex: 0}});
 });
+
+QUnit.test('R21: polar obstacle preserves last safe position and heading', assert => {
+    const rover = new RoverForTest({x: 1, y: 2, direction: 'N', obstacles: [[5, 1]]});
+    assert.deepEqual(rover.execute('ffr'), {position: {x: 1, y: 1, direction: 'N'}, obstacle: {x: 5, y: 1, commandIndex: 1}});
+});
