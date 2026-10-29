@@ -11,6 +11,7 @@ class Holdjaro {
         if (this.x < 1 || this.x > this.width) throw new RangeError('Longitude outside globe');
         if (this.y < 1 || this.y > this.height) throw new RangeError('Latitude outside globe');
         if (!Number.isSafeInteger(this.width) || this.width < 2 || this.width % 2 !== 0) throw new RangeError('Positive even longitude count required');
+        if (!Number.isSafeInteger(this.height) || this.height < 1) throw new RangeError('Positive integer latitude count required');
     }
 
     getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
