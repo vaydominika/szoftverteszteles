@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "npm run test:first && npm run test:qunit",
+    "test": "npm run test:first && npm run test:qunit && npm run test:practice",
     "test:first": "node scripts/test-first.js",
-    "test:qunit": "qunit 2gyakorlat/square.test.js 2gyakorlat/FizzBuzz/FizzBuzz.test.js 2gyakorlat/RomanConverter/RomanConverter.test.js"
+    "test:qunit": "qunit 2gyakorlat/square.test.js 2gyakorlat/FizzBuzz/FizzBuzz.test.js 2gyakorlat/RomanConverter/RomanConverter.test.js",
+    "test:practice": "qunit gyakorlofeladatok/ShippingCost/ShippingCost.test.js"
   },
   "devDependencies": {
     "qunit": "2.26.0"
