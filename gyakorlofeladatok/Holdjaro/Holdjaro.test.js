@@ -115,3 +115,9 @@ QUnit.test('R23: antipodal longitude for configured globe', assert => {
     const rover = new RoverForTest({x: 2, y: 1, direction: 'N', width: 12, height: 6});
     assert.deepEqual(rover.execute('f'), {position: {x: 8, y: 1, direction: 'S'}, obstacle: null});
 });
+
+QUnit.test('R24: invalid sequence is rejected before movement', assert => {
+    const rover = new RoverForTest({x: 3, y: 4, direction: 'N'});
+    assert.throws(() => rover.execute('fx'), RangeError);
+    assert.deepEqual(rover.getPosition(), {x: 3, y: 4, direction: 'N'});
+});
