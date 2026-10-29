@@ -13,7 +13,8 @@ class Holdjaro {
 
     execute(commands) {
         for (const [commandIndex, command] of [...commands].entries()) {
-            if (command === 'f' && this.direction === 'N') this.y -= 1;
+            const before = this.getPosition();
+if (command === 'f' && this.direction === 'N') this.y -= 1;
 if (command === 'b' && this.direction === 'N') this.y += 1;
 if (command === 'f' && this.direction === 'E') this.x += 1;
 if (command === 'b' && this.direction === 'E') this.x -= 1;
@@ -27,6 +28,12 @@ if (this.x > this.width) this.x = 1;
 if (this.x < 1) this.x = this.width;
 if (this.y < 1) { this.y = 1; this.x = (this.x - 1 + 4) % this.width + 1; this.direction = this.direction === 'N' ? 'S' : 'N'; }
 if (this.y > this.height) { this.y = this.height; this.x = (this.x - 1 + 4) % this.width + 1; this.direction = this.direction === 'N' ? 'S' : 'N'; }
+            if (command === 'f' && this.obstacles.some(([x, y]) => x === this.x && y === this.y)) {
+                const obstacle = {x: this.x, y: this.y, commandIndex};
+                this.x = before.x;
+                this.y = before.y;
+                return {position: this.getPosition(), obstacle};
+            }
         }
         return {position: this.getPosition(), obstacle: null};
     }
