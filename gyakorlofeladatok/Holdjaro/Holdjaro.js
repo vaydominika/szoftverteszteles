@@ -1,9 +1,15 @@
 class Holdjaro {
     constructor(options = {}) {
-        
+        this.x = options.x;
+        this.y = options.y;
+        this.direction = options.direction;
+        this.width = 8;
+        this.height = 8;
+        this.obstacles = options.obstacles ?? [];
+
     }
 
-    getPosition() { return undefined; }
+    getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
 
     execute(commands) {
                 return {position: this.getPosition(), obstacle: null};
