@@ -40,3 +40,7 @@ QUnit.test('S09: case insensitive country', assert => {
 QUnit.test('S10: malformed country rejection', assert => {
     assert.throws(() => shippingForTest(10000, 1, "", false), RangeError);
 });
+
+QUnit.test('S11: nonfinite order rejection', assert => {
+    assert.throws(() => shippingForTest(NaN, 1, "HU", false), RangeError);
+});
