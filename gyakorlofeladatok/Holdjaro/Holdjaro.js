@@ -1,51 +1,84 @@
 class Holdjaro {
-    constructor(options = {}) {
-        this.x = options.x;
-        this.y = options.y;
-        this.direction = options.direction;
-        this.width = options.width ?? 8;
-        this.height = options.height ?? 8;
-        this.obstacles = options.obstacles ?? [];
-        if (!['N', 'E', 'S', 'W'].includes(this.direction)) throw new RangeError('Invalid direction');
-        if (!Number.isSafeInteger(this.x) || !Number.isSafeInteger(this.y)) throw new RangeError('Integer coordinates required');
-        if (this.x < 1 || this.x > this.width) throw new RangeError('Longitude outside globe');
-        if (this.y < 1 || this.y > this.height) throw new RangeError('Latitude outside globe');
-        if (!Number.isSafeInteger(this.width) || this.width < 2 || this.width % 2 !== 0) throw new RangeError('Positive even longitude count required');
-        if (!Number.isSafeInteger(this.height) || this.height < 1) throw new RangeError('Positive integer latitude count required');
-        if (!Array.isArray(this.obstacles) || this.obstacles.some(cell => !Array.isArray(cell) || cell.length !== 2 || !Number.isSafeInteger(cell[0]) || !Number.isSafeInteger(cell[1]) || cell[0] < 1 || cell[0] > this.width || cell[1] < 1 || cell[1] > this.height)) throw new RangeError('Invalid obstacle coordinates');
-        if (this.obstacles.some(([x, y]) => x === this.x && y === this.y)) throw new RangeError('Starting cell is blocked');
+    constructor({x, y, direction, width = 8, height = 8, obstacles = []} = {}) {
+        if (!Number.isSafeInteger(width) || width < 2 || width % 2 !== 0) {
+            throw new RangeError('Positive even longitude count required');
+        }
+        if (!Number.isSafeInteger(height) || height < 1) {
+            throw new RangeError('Positive integer latitude count required');
+        }
+        if (!['N', 'E', 'S', 'W'].includes(direction)) {
+            throw new RangeError('Invalid direction');
+        }
+
+        this.width = width;
+        this.height = height;
+        if (!this.isCoordinate(x, y)) throw new RangeError('Starting point outside globe');
+        if (!Array.isArray(obstacles) || obstacles.some(cell =>
+            !Array.isArray(cell) || cell.length !== 2 || !this.isCoordinate(...cell))) {
+            throw new RangeError('Invalid obstacle coordinates');
+        }
+
+        this.obstacles = new Set(obstacles.map(([obstacleX, obstacleY]) => `${obstacleX},${obstacleY}`));
+        if (this.obstacles.has(`${x},${y}`)) throw new RangeError('Starting cell is blocked');
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
     }
 
-    getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
+    isCoordinate(x, y) {
+        return Number.isSafeInteger(x) && Number.isSafeInteger(y)
+            && x >= 1 && x <= this.width && y >= 1 && y <= this.height;
+    }
+
+    getPosition() {
+        return {x: this.x, y: this.y, direction: this.direction};
+    }
 
     execute(commands) {
         if (typeof commands !== 'string') throw new TypeError('Commands must be a string');
-        if ([...commands].some(command => !'fblr'.includes(command))) throw new RangeError('Unknown command');
-        for (const [commandIndex, command] of [...commands].entries()) {
-            const before = this.getPosition();
-if (command === 'f' && this.direction === 'N') this.y -= 1;
-if (command === 'b' && this.direction === 'N') this.y += 1;
-if (command === 'f' && this.direction === 'E') this.x += 1;
-if (command === 'b' && this.direction === 'E') this.x -= 1;
-if (command === 'f' && this.direction === 'S') this.y += 1;
-if (command === 'b' && this.direction === 'S') this.y -= 1;
-if (command === 'f' && this.direction === 'W') this.x -= 1;
-if (command === 'b' && this.direction === 'W') this.x += 1;
-if (command === 'r') this.direction = ['N', 'E', 'S', 'W'][(['N', 'E', 'S', 'W'].indexOf(this.direction) + 1) % 4];
-if (command === 'l') this.direction = ['N', 'E', 'S', 'W'][(['N', 'E', 'S', 'W'].indexOf(this.direction) + 3) % 4];
-if (this.x > this.width) this.x = 1;
-if (this.x < 1) this.x = this.width;
-if (this.y < 1) { this.y = 1; this.x = (this.x - 1 + this.width / 2) % this.width + 1; this.direction = this.direction === 'N' ? 'S' : 'N'; }
-if (this.y > this.height) { this.y = this.height; this.x = (this.x - 1 + this.width / 2) % this.width + 1; this.direction = this.direction === 'N' ? 'S' : 'N'; }
-            if ((command === 'f' || command === 'b') && this.obstacles.some(([x, y]) => x === this.x && y === this.y)) {
-                const obstacle = {x: this.x, y: this.y, commandIndex};
-                this.x = before.x;
-                this.y = before.y;
-                this.direction = before.direction;
-                return {position: this.getPosition(), obstacle};
+        if (!/^[fblr]*$/.test(commands)) throw new RangeError('Unknown command');
+
+        const directions = ['N', 'E', 'S', 'W'];
+        for (let commandIndex = 0; commandIndex < commands.length; commandIndex++) {
+            const command = commands[commandIndex];
+            if (command === 'l' || command === 'r') {
+                const turn = command === 'r' ? 1 : 3;
+                this.direction = directions[(directions.indexOf(this.direction) + turn) % 4];
+                continue;
             }
+
+            const next = this.nextPosition(command);
+            if (this.obstacles.has(`${next.x},${next.y}`)) {
+                return {
+                    position: this.getPosition(),
+                    obstacle: {x: next.x, y: next.y, commandIndex}
+                };
+            }
+            this.x = next.x;
+            this.y = next.y;
+            this.direction = next.direction;
         }
         return {position: this.getPosition(), obstacle: null};
     }
+
+    nextPosition(command) {
+        const vectors = {N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0]};
+        const [dx, dy] = vectors[this.direction];
+        const sign = command === 'f' ? 1 : -1;
+        let {x, y, direction} = this.getPosition();
+        x += sign * dx;
+        y += sign * dy;
+
+        if (x < 1) x = this.width;
+        if (x > this.width) x = 1;
+        if (y < 1 || y > this.height) {
+            y = y < 1 ? 1 : this.height;
+            const halfTurn = this.width / 2;
+            x = x <= halfTurn ? x + halfTurn : x - halfTurn;
+            direction = direction === 'N' ? 'S' : 'N';
+        }
+        return {x, y, direction};
+    }
 }
+
 if (typeof module !== 'undefined') module.exports = Holdjaro;

@@ -8,6 +8,7 @@
 | `2gyakorlat` | QUnit: square, FizzBuzz, RomanConverter |
 | `3gyakorlat` | JUnit: Calculator (hatványozással és törtosztással), BankAccount, Table, Triangle, User; életciklus- és paraméterezési példák |
 | `4gyakorlat` | Mockito: BankService, NotificationService, ExchangeRateService, User és UserDatabase; kézi mock, `@Mock`, `@InjectMocks`, stubbing és hívásellenőrzés |
+| `gyakorlofeladatok` | A külön feladatlista áttekintése; JS/QUnit szállítási díj és gömb alakú bolygón mozgó holdjáró; [részletek](gyakorlofeladatok/README.md) |
 
 A Java-osztályok csomagja a meglévő `hu.example` nevet követi; a Mockito-példák `hu.example.mocking` alatt találhatók.
 A 4. gyakorlat a 3. gyakorlat BankAccount osztályát használja.
@@ -23,7 +24,7 @@ npm test
 mvn test
 ```
 
-Az `npm test` az első gyakorlat 85 JavaScript-esetét és a QUnit-teszteket futtatja.
+Az `npm test` az első gyakorlat 85 JavaScript-esetét, a második gyakorlat 8 QUnit-tesztjét, valamint a gyakorlófeladatok 47 QUnit-tesztjét futtatja (13 szállítási díj és 34 holdjáró).
 A Maven a Java- és Mockito-modulokat együtt teszteli, a ShippingCost feladattal együtt.
 Az első `npm ci` és Maven-futtatás internetkapcsolatot igényel.
 
@@ -32,6 +33,7 @@ Külön futtatás:
 ```sh
 npm run test:first
 npm run test:qunit
+npm run test:practice
 mvn -pl 1gyakorlat test
 mvn -pl 3gyakorlat test
 mvn -pl 4gyakorlat -am test
@@ -40,6 +42,8 @@ mvn -pl 4gyakorlat -am test
 QUnit böngészőben: `npm ci` után nyisd meg a `2gyakorlat/index.html` fájlt.
 A böngésző ugyanazokat a helyi QUnit-fájlokat és teszteket használja, mint a parancssori futtatás.
 Egy első heti teszt JSON-eredménye például: `node 1gyakorlat/DiscountCalculator/DiscountCalculatorTest.js --json`.
+A gyakorlófeladatok böngészős tesztlapja: `gyakorlofeladatok/index.html`.
+A szállítási díj eredeti és javított JavaScript-kódjának 27 közvetlen összehasonlító hívása: `node gyakorlofeladatok/ShippingCost/ellenorzes.js`.
 
 ## Szabályok és döntések
 
@@ -61,3 +65,4 @@ A viselkedésváltozások külön RED teszt- és GREEN megvalósítási commitba
 A RED lépés a specifikációt sértő viselkedés miatt bukik, a GREEN lépés ugyanazokkal a tesztekkel sikeres.
 A közös tesztfuttató kiemelése külön refaktorálás, a működő tesztek megőrzésével.
 Új feladatnál előbb készüljön el és fusson hibára a teszt, utána a minimális megvalósítás; a refaktorálást újabb sikeres futtatás kövesse.
+A gyakorlófeladatok mind a 47 új tesztesete saját RED és GREEN commitpárt kapott; a [TDD-jegyzék](gyakorlofeladatok/TDD.md) felsorolja őket.

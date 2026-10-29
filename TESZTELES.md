@@ -6,6 +6,8 @@ Ellenőrzés: 2026. október 29.
 | --- | ---: | ---: | ---: |
 | 1. gyakorlat – JavaScript-esetek | 85 | 0 | 0 |
 | 2. gyakorlat – QUnit-tesztek | 8 | 0 | 0 |
+| Gyakorlófeladatok – szállítási díj QUnit-tesztek | 13 | 0 | 0 |
+| Gyakorlófeladatok – holdjáró QUnit-tesztek | 34 | 0 | 0 |
 | 1gyakorlat – Java/Mockito-tesztek | 28 | 0 | 0 |
 | 3gyakorlat – Java/Mockito-tesztek | 63 | 0 | 0 |
 | 4gyakorlat – Java/Mockito-tesztek | 13 | 0 | 0 |
@@ -37,3 +39,11 @@ A 17 RED/GREEN pár külön munkamappában is ellenőrizve lett. A RED lépések
 A közös első heti tesztfuttató refaktorálása (`73cacce`) után mind a 85 eset sikeres maradt.
 
 A korábbi szándékosan hibás bemenetekhez tartozó első heti hibajegyzékek történeti hibakeresési eredmények; az aktuális javított kódok állapotát a fenti futtatás mutatja.
+
+## Gyakorlófeladatok
+
+Az új feladatlista alapján a JS/QUnit ShippingCost és a holdjáró megoldása került a `gyakorlofeladatok` mappába. A római szám konverter és a BankAccount már megvolt.
+Minden új teszteset külön RED commitban, a megvalósítása a következő GREEN commitban szerepel: összesen 47 pár, 94 új commit. A [TDD-jegyzék](gyakorlofeladatok/TDD.md) a teszteseteket és commitokat is felsorolja.
+Mind a 47 RED futtatásban az új teszteset bukott; mind a 47 GREEN futtatás sikeres. A végső közös `npm test` futtatás is sikeres.
+A szállítási díj [közvetlen JS-ellenőrzése](gyakorlofeladatok/ShippingCost/ellenorzes.md) 27 bemenetet vizsgál: az eredeti kód 14 eltérését dokumentálja, a javított kódnál nincs eltérés.
+A holdjáró 34 esete a kapott gömbábrát követi, beleértve a pólusokat és az ottani akadályokat; az akadályellenőrzés a célmező elfoglalása előtt történik.

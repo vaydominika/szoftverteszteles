@@ -2,6 +2,8 @@
 
 - Call the user "My Lady".
 - A gyakorlatokat az `1gyakorlat`, `2gyakorlat`, `3gyakorlat`, `4gyakorlat` elnevezési mintát követve rendezd.
+- A külön gyakorlófeladat-lista megoldásai a felhasználó kérésére a `gyakorlofeladatok` mappában szerepeljenek.
+- A gyakorlófeladatok minden új tesztesete külön RED commitot, majd külön GREEN megvalósítási commitot kapjon; ne csoportosíts több új tesztesetet egy commitba.
 - Új vagy módosított működéshez először írj tesztet és ellenőrizd a tényleges teszthibát (RED); külön commitban valósítsd meg és futtasd sikerre (GREEN).
 - Fordítási, hálózati vagy függőséghiba nem fogadható el RED bizonyítékként.
 - Refaktorálásnál maradjanak sikeresek az érintett tesztek.
