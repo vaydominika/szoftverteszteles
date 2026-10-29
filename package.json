@@ -5,7 +5,7 @@
   "scripts": {
     "test": "npm run test:first && npm run test:qunit",
     "test:first": "node scripts/test-first.js",
-    "test:qunit": "qunit 2gyakorlat/*.test.js"
+    "test:qunit": "qunit 2gyakorlat/square.test.js 2gyakorlat/FizzBuzz/FizzBuzz.test.js 2gyakorlat/RomanConverter/RomanConverter.test.js"
   },
   "devDependencies": {
     "qunit": "2.26.0"
