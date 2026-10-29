@@ -12,6 +12,7 @@ class Holdjaro {
     getPosition() { return {x: this.x, y: this.y, direction: this.direction}; }
 
     execute(commands) {
+        if ([...commands].some(command => !'fblr'.includes(command))) throw new RangeError('Unknown command');
         for (const [commandIndex, command] of [...commands].entries()) {
             const before = this.getPosition();
 if (command === 'f' && this.direction === 'N') this.y -= 1;
